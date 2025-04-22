@@ -24,10 +24,6 @@ public class InventoryBackpackController : MonoBehaviour {
     public RectTransform itemsParent;
     public RectTransform ghostParent;
     public GraphicRaycaster graphicRaycaster;
-    
-    [Header("Test Data")]
-    public ItemDefinition swordDefinition;
-    public ItemDefinition orbDefinition;
 
     private void Awake()
     {
@@ -41,8 +37,6 @@ public class InventoryBackpackController : MonoBehaviour {
 
     void Start() {
         BuildSlots();
-        AddItemToGrid(swordDefinition, new Vector2Int(0, 0));
-        AddItemToGrid(orbDefinition, new Vector2Int(1, 0));
         RenderItems();
     }
 
@@ -232,4 +226,71 @@ public class InventoryBackpackController : MonoBehaviour {
 
         return localPoint;
     }
+    
+    public Vector2Int? FindFirstFit(ItemDefinition def)
+    {
+        for (int y = 0; y < _runtimeData.height; y++)
+        {
+            for (int x = 0; x < _runtimeData.width; x++)
+            {
+                var origin = new Vector2Int(x, y);
+                if (CanFit(def, origin))
+                    return origin;
+            }
+        }
+        return null;
+    }
+    
+    private bool CanFit(ItemDefinition def, Vector2Int origin)
+    {
+        foreach (var offset in def.shape)
+        {
+            var pos = origin + offset;
+            var slot = _runtimeData.GetSlot(pos.x, pos.y);
+            if (slot == null || !slot.active || slot.item != null)
+                return false;
+        }
+        return true;
+    }
+    
+    public int CountItem(ItemDefinition def)
+    {
+        var origins = new HashSet<Vector2Int>();
+        foreach (var slot in _runtimeData.slots)
+            if (slot.item == def && slot.itemOrigin.x >= 0)
+                origins.Add(slot.itemOrigin);
+        return origins.Count;
+    }
+    
+    public int RemoveItems(ItemDefinition def, int quantity)
+    {
+        int removed = 0;
+        // 1) Collect all distinct origins for this item definition
+        var origins = new HashSet<Vector2Int>();
+        foreach (var slot in _runtimeData.slots)
+            if (slot.item == def && slot.itemOrigin.x >= 0)
+                origins.Add(slot.itemOrigin);
+
+        // 2) Remove one entire item (all its slots) per origin, up to quantity
+        foreach (var origin in origins)
+        {
+            if (removed >= quantity)
+                break;
+
+            // clear every slot that belonged to this item instance
+            foreach (var offset in def.shape)
+            {
+                var pos = origin + offset;
+                var s = _runtimeData.GetSlot(pos.x, pos.y);
+                if (s != null)
+                    s.Clear();
+            }
+            removed++;
+        }
+
+        // 3) Refresh the UI so they disappear
+        RenderItems();
+        return removed;
+    }
+    
 }
