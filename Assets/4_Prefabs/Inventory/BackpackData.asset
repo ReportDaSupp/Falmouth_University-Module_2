@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad11ded523888b641a278f4ee3677fc2, type: 3}
+  m_Name: BackpackData
+  m_EditorClassIdentifier: 
+  width: 3
+  height: 3
+  slots:
+  - active: 1
+    item: {fileID: 0}
+    origin: {x: 0, y: 0}
+    itemOrigin: {x: -1, y: -1}
+  - active: 1
+    item: {fileID: 0}
+    origin: {x: 1, y: 0}
+    itemOrigin: {x: -1, y: -1}
+  - active: 1
+    item: {fileID: 0}
+    origin: {x: 2, y: 0}
+    itemOrigin: {x: -1, y: -1}
+  - active: 1
+    item: {fileID: 0}
+    origin: {x: 0, y: 1}
+    itemOrigin: {x: -1, y: -1}
+  - active: 1
+    item: {fileID: 0}
+    origin: {x: 1, y: 1}
+    itemOrigin: {x: -1, y: -1}
+  - active: 1
+    item: {fileID: 0}
+    origin: {x: 2, y: 1}
+    itemOrigin: {x: -1, y: -1}
+  - active: 1
+    item: {fileID: 0}
+    origin: {x: 0, y: 2}
+    itemOrigin: {x: -1, y: -1}
+  - active: 1
+    item: {fileID: 0}
+    origin: {x: 1, y: 2}
+    itemOrigin: {x: -1, y: -1}
+  - active: 1
+    item: {fileID: 0}
+    origin: {x: 2, y: 2}
+    itemOrigin: {x: -1, y: -1}
