@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdbd0201dad38474eacc6d72a5159755, type: 3}
-  m_Name: WoodenSword
+  m_Name: Rock
   m_EditorClassIdentifier: 
-  itemName: Wooden Sword
-  icon: {fileID: 6853316077166303748, guid: 7939f3d48f307f64ebfe82d316d43532, type: 3}
+  itemName: Rock
+  description: It's Rock Hard
+  icon: {fileID: 141893073332109768, guid: eb1325d4640251044b6129eafeb5bf3c, type: 3}
   shape:
   - {x: 0, y: 0}
-  - {x: 0, y: 1}

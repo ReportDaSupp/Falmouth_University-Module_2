@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3132378753909978400}
   - component: {fileID: 2791318433379823744}
   - component: {fileID: 1442613729305012190}
+  - component: {fileID: 2635502361627555350}
   m_Layer: 5
   m_Name: ItemPrefab
   m_TagString: Untagged
@@ -89,3 +90,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 2791318433379823744}
+--- !u!114 &2635502361627555350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4905204577654626900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf414acce54463a41b94a64f751a1b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

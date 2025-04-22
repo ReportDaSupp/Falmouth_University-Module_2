@@ -7,6 +7,6 @@ public class InventorySlotView : MonoBehaviour {
     public InventorySlotData Data;
     public void Initialize(InventorySlotData slotData) {
         Data = slotData;
-        background.color = Data.active ? Color.gray : Color.black;
+        background.color = Data.active ? Color.gray : new Color(0f,0f,0f,0f);
     }
 }

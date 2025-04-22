@@ -112,4 +112,6 @@ public class InventoryItemView : MonoBehaviour,
         rect.anchoredPosition = controller.SlotToLocalPosition(origin);
         controller.HideGhost();
     }
+    
+    
 }
