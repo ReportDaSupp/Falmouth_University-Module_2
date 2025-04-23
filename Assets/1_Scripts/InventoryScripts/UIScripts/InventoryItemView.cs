@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System.Linq;
 
 public class InventoryItemView : MonoBehaviour,
-    IBeginDragHandler, IDragHandler, IEndDragHandler
+    IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     public Image icon;
     public Vector2Int origin { get; set; }
@@ -113,5 +113,12 @@ public class InventoryItemView : MonoBehaviour,
         controller.HideGhost();
     }
     
-    
+    public void OnPointerClick(PointerEventData e)
+    {
+        Debug.Log($"Item {itemData.itemName} clicked with {e.button}");
+        if (e.button == PointerEventData.InputButton.Right)
+            ContextMenuController.Instance.Show(this, e.position + new Vector2(cellSize.x * 1f, -(cellSize.y * 1.5f)));
+        if (e.button == PointerEventData.InputButton.Left)
+            ContextMenuController.Instance.Hide();
+    }
 }

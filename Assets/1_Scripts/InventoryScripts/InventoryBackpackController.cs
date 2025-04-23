@@ -24,7 +24,10 @@ public class InventoryBackpackController : MonoBehaviour {
     public RectTransform itemsParent;
     public RectTransform ghostParent;
     public GraphicRaycaster graphicRaycaster;
-
+    
+    [Header("World Pickup")]
+    public GameObject pickupItemWorldPrefab;
+    
     private void Awake()
     {
         _runtimeData = Instantiate(inventoryData);
@@ -293,4 +296,29 @@ public class InventoryBackpackController : MonoBehaviour {
         return removed;
     }
     
+    public bool DropItemAtOrigin(ItemDefinition def, Vector2Int origin, Vector3 worldPos)
+    {
+        // 1) Validate & clear all its slots
+        //    (works only if that origin really holds def)
+        foreach (var off in def.shape)
+        {
+            var slot = _runtimeData.GetSlot(origin.x + off.x, origin.y + off.y);
+            if (slot == null || slot.item != def)
+                return false;
+        }
+        foreach (var off in def.shape)
+        {
+            var slot = _runtimeData.GetSlot(origin.x + off.x, origin.y + off.y);
+            slot.Clear();
+        }
+
+        // 2) Refresh UI
+        RenderItems();
+
+        // 3) Spawn world pickup
+        var go = Instantiate(pickupItemWorldPrefab, worldPos, Quaternion.identity);
+        go.GetComponent<PickupItem>().itemDefinition = def;
+
+        return true;
+    }
 }
