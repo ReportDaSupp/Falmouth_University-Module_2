@@ -17,9 +17,9 @@ public class InventoryItemView : MonoBehaviour,
 
     private InventoryBackpackController controller;
     private RectTransform rect;
-    private Vector2 offset;            // pixel‐offset for smooth drag
-    private Vector2 cellSize;          // size of one grid cell in px
-    private Vector2Int grabOffset;     // which tile you grabbed (grid coords)
+    private Vector2 offset;
+    private Vector2 cellSize;
+    private Vector2Int grabOffset;
 
     public void Initialize(InventorySlotData slot, InventoryBackpackController ctrl)
     {
@@ -49,11 +49,8 @@ public class InventoryItemView : MonoBehaviour,
     {
         offset = e.position - (Vector2)rect.position;
         rect.SetAsLastSibling();
-
-        // default in case we miss
         GrabOffset = Vector2Int.zero;
-
-        // Raycast UI under mouse
+        
         var pd = new PointerEventData(EventSystem.current)
         {
             position = e.position
@@ -70,8 +67,7 @@ public class InventoryItemView : MonoBehaviour,
                 break;
             }
         }
-
-        // Immediately show ghost
+        
         controller.UpdateGhost(this, e.position);
     }
 
@@ -83,7 +79,6 @@ public class InventoryItemView : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData e)
     {
-        // 1) Raycast into the UI (ghost won’t block now)
         var results = new List<RaycastResult>();
         controller.graphicRaycaster.Raycast(
             new PointerEventData(EventSystem.current) { position = e.position },
@@ -95,20 +90,17 @@ public class InventoryItemView : MonoBehaviour,
             if ((hitSlot = r.gameObject.GetComponent<InventorySlotView>()) != null)
                 break;
 
-        // 2) If we found a slot, compute the new origin and try to place
         if (hitSlot != null)
         {
             var newOrigin = hitSlot.Data.origin - GrabOffset;
             if (controller.TryPlaceItem(this, newOrigin))
             {
-                // snap this view into place
                 rect.anchoredPosition = controller.SlotToLocalPosition(newOrigin);
                 controller.HideGhost();
                 return;
             }
         }
-
-        // 3) Fallback: revert to old origin
+        
         rect.anchoredPosition = controller.SlotToLocalPosition(origin);
         controller.HideGhost();
     }

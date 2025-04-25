@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c828ebf6e7a4d498b880dac865c4ce, type: 3}
+  m_Name: FetchPinecone 1
+  m_EditorClassIdentifier: 
+  questTitle: 'Quest: Fetch The Pinecone 1'
+  questDescription: Pickup and Bring Back One Pinecone
+  requiredQuantity: 1
+  requiredItem: {fileID: 11400000, guid: e009af7bdb808c148b8415c2ac52c717, type: 2}
+  questGiverPortrait: {fileID: 2960402581040015946, guid: 8278189f61749eb4b92db223a1b67f77, type: 3}
+  rewardGold: 10
+  rewardXP: 5

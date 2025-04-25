@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734c825a54b80e2419765e798f7d3a8b, type: 3}
+  m_Name: ScarecrowTurnip
+  m_EditorClassIdentifier: 
+  npcId: ScarecrowTurnip
+  portrait: {fileID: 2960402581040015946, guid: 8278189f61749eb4b92db223a1b67f77, type: 3}
+  quests:
+  - {fileID: 11400000, guid: 478b833b7b0772e489842bf2bf1f23b5, type: 2}
+  - {fileID: 11400000, guid: 8820c14dcec4a034cab5ff8685cfd601, type: 2}
+  - {fileID: 11400000, guid: b9f30ee219b3676479210f16bd44a30b, type: 2}
+  - {fileID: 11400000, guid: 900892e9f23d1b446a89ba7cdad86419, type: 2}
+  introLines:
+  - Intro Test
+  inProgressLines:
+  - In Progress Test
+  completeLines:
+  - Complete Test

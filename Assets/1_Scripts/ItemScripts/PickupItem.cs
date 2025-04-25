@@ -8,7 +8,7 @@ public class PickupItem : MonoBehaviour
     public ItemDefinition itemDefinition;
 
     [Header("UI Prompt")]
-    public GameObject promptUI;    // assign a small “Press E to pick up” UI GameObject
+    public GameObject promptUI;
 
     private InventoryBackpackController inventory;
     private bool playerInRange;

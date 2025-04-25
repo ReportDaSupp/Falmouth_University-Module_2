@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Basic 2D movement (no iso math)
-        moveInput.x = Input.GetAxisRaw("Horizontal"); // A/D or ←/→
-        moveInput.y = Input.GetAxisRaw("Vertical");   // W/S or ↑/↓
+        moveInput.x = Input.GetAxisRaw("Horizontal");
+        moveInput.y = Input.GetAxisRaw("Vertical");
 
         moveInput = moveInput.normalized;
     }

@@ -1,4 +1,7 @@
 // Assets/Scripts/GameController.cs
+
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,11 +13,11 @@ public class GameController : MonoBehaviour
     public InventoryBackpackController inventory;
 
     [Header("UI")]
-    public Text   goldText;
-    public Text   xpText;
-    public Text   questStatusText;   // e.g. “Deliver 1× Fire Orchid”
+    public TMP_Text   goldText;
+    public TMP_Text   xpText;
 
-    private QuestDefinition activeQuest;
+    [HideInInspector] public QuestDefinition activeQuest;
+    private List<QuestDefinition> completedQuests = new();
     private int gold, xp;
 
     void Awake()
@@ -23,49 +26,41 @@ public class GameController : MonoBehaviour
         else Instance = this;
     }
 
-    void Update()
-    {
-        // Check for delivery: if player presses E at a quest-giver with activeQuest:
-        if (activeQuest != null && Input.GetKeyDown(KeyCode.E))
-        {
-            // Raycast or trigger check to see if we're at the giver
-            // Simplest: rely on QuestGiver OnAccept to re-press E to deliver
-        }
-    }
-
     public void StartQuest(QuestDefinition quest)
     {
         activeQuest = quest;
-        //questStatusText.text = 
-            //$"Quest: {quest.questTitle}\n" +
-            //$"Fetch {quest.requiredQuantity}× {quest.requiredItem.itemName}";
+        QuestTrackerController.Instance.Refresh();
     }
-
+    
+    public void CompleteQuest()
+    {
+        if (activeQuest == null) return;
+        completedQuests.Add(activeQuest);
+        gold += activeQuest.rewardGold;
+        xp   += activeQuest.rewardXP;
+        goldText.text = $"Gold: {gold}";
+        xpText.text   = $"XP: {xp}";
+        activeQuest = null;
+        //questStatusText.text = "No active quest.";
+        QuestTrackerController.Instance.Refresh();
+    }
+    
+    public bool HasCompleted(QuestDefinition q) => completedQuests.Contains(q);
+    
     public void TryDeliver(QuestGiver giver)
     {
-        if (activeQuest == null || giver.quest != activeQuest) return;
-
-        // Count matching items in inventory
+        if (activeQuest == null || giver.pendingQuest != activeQuest) return;
+        
         int count = inventory.CountItem(activeQuest.requiredItem);
         if (count >= activeQuest.requiredQuantity)
         {
-            // Remove items
             inventory.RemoveItems(activeQuest.requiredItem, activeQuest.requiredQuantity);
-
-            // Grant rewards
-            //gold += activeQuest.rewardGold;
-            //xp   += activeQuest.rewardXP;
-            //goldText.text = $"Gold: {gold}";
-            //xpText.text   = $"XP: {xp}";
-
-            // Clear quest
-            activeQuest = null;
-            //questStatusText.text = "No active quest.";
+            
+            CompleteQuest();
             Debug.Log("Quest Completed");
         }
         else
         {
-            // Feedback: not enough items
             Debug.Log("You don't have enough quest items!");
         }
     }
